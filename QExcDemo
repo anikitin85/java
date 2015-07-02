@@ -1,0 +1,78 @@
+class QueueFullException extends Exception {
+	int size;
+	
+	QueueFullException(int s) {
+		size = s;
+	}
+	
+	public String toString() {
+		return "\nQueue is full. Maximum size is " + size;
+	}
+}
+
+class QueueEmptyException extends Exception {
+	public String toString() {
+		return "\nQueue is empty.";
+	}
+}
+
+class FixedQueue implements ICharQ {
+
+	private char[] s;
+	private putloc;
+	private getloc;
+
+	public FixedQueue(int size) {
+		s = new char[size]
+		putloc = getloc = 0;
+	}
+	
+	public void put(char ch) throws QueueFullException {
+		if (putloc == s.length) {
+			throw new QueueFullException(s.length);
+		}
+		s[putloc++] = ch;
+	}
+	
+	public char get() throws QueueEmptyException {
+		if (getloc == putloc) {
+			throw new QueueEmptyException();
+		}
+		return s[getloc++];
+	}
+}
+
+class QExcDemo {
+	public static void main(String[] args) {
+		FixedQueue q = new FixedQueue(10);
+		char ch;
+		int i;
+		
+		try {
+			// overrun the queue
+			for (i = 0; i < 11; i++) {
+				System.out.print("Attempting to store: " +
+					(char) ('A' + i));
+				q.put((char) ('A' + i));
+				System.out.println(" - OK");
+			}
+			System.out.println();
+		}
+		catch (QueueFullException exc) {
+			System.out.println(exc);
+		}
+		System.out.println();
+		
+		try {
+			// over-empty the queue
+			for (i = 0; i < 11; i++) {
+				System.out.print("Getting next char: ");
+				ch = q.get();
+				System.out.println(ch);
+			}
+		}
+		catch (QueueEmptyException exc) {
+			System.out.println(exc);
+		}
+	}
+}
