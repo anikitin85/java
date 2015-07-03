@@ -14,12 +14,6 @@ class ShowFile {
 		
 		try {
 			fin = new FileInputStream(args[0]); // Open the file.
-		} catch (FileNotFoundException exc) {
-			System.out.println("File not found.");
-			return;
-		}
-		
-		try {
 			// Read bytes until EOF.
 			do {
 				i = fin.read(); // Read from the file.
@@ -27,6 +21,8 @@ class ShowFile {
 					System.out.print((char) i);
 				}
 			} while (i != -1); // -1 means EOF.
+		} catch (FileNotFoundException exc) {
+			System.out.println("File not found.");
 		} catch (IOException exc) {
 			System.out.println("Error reading the file.");
 			return;
