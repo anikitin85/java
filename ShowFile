@@ -21,10 +21,8 @@ class ShowFile {
 					System.out.print((char) i);
 				}
 			} while (i != -1); // -1 means EOF.
-		} catch (FileNotFoundException exc) {
-			System.out.println("File not found.");
 		} catch (IOException exc) {
-			System.out.println("Error reading the file.");
+			System.out.println("I/O Error: " + exc);
 			return;
 		} finally {
 			try {
