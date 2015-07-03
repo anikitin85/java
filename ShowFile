@@ -4,7 +4,7 @@ import java.io.*;
 class ShowFile {
 	public static void main(String[] args) {
 		int i;
-		FileInputSteam fin;
+		FileInputSteam fin = null;
 		
 		// Make sure a file name is specified.
 		if (args.length != 1) {
@@ -28,7 +28,7 @@ class ShowFile {
 			return;
 		} finally {
 			try {
-				fin.close(); // Close the file.
+				if (fin != null) fin.close(); // Close the file.
 			} catch (IOException exc) {
 				System.out.println("Error closing the file.");
 			}
